@@ -12,7 +12,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/user-profile', title: 'Perfil de Usuario',  icon:'users_single-02', class: '' },
     { path: '/dashboard', title: 'Principal',  icon: 'design_app', class: '' },
     { path: '/notifications', title: 'Notifications',  icon:'ui-1_bell-53', class: '' },
-    { path: '/notifications', title: 'Login',  icon:'ui-1_bell-53', class: '' },
+    { path: '/login', title: 'Login',  icon:'users_single-02', class: '' },
 ];
 
 @Component({
