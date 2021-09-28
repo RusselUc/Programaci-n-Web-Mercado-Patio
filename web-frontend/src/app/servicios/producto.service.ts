@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductoService {
   
-  private BASE_URL = 'http://192.168.0.108:8080'
+  private BASE_URL = 'http://192.168.71.19:8080'
   constructor(private http:HttpClient) {
   }
 

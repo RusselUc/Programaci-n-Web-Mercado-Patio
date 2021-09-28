@@ -24,8 +24,7 @@
                 </th>
               </thead>
               <tbody>
-                <tr *ngFor="let producto of productoArray"
-                  [class.active]="usuario==selectedUsuario">
+                <tr *ngFor="let producto of productoArray">
                   <td>{{producto.categoria}}</td>
                   <td>{{producto.nombre}}</td>
                   <td>{{producto.precio}}</td>
