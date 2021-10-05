@@ -12,7 +12,7 @@ CORS(app)
 cred = credentials.Certificate('key.json')
 default_app = initialize_app(cred)
 db = firestore.client()
-todo_ref = db.collection('todos')
+productos_ref = db.collection('Productos')
 
 @app.route('/add', methods=['POST'])
 def create():
@@ -21,12 +21,19 @@ def create():
         Ensure you pass a custom ID as part of json body in post request,
         e.g. json={'id': '1', 'title': 'Write a blog post'}
     """
+
     try:
-        id = request.json['id']
-        todo_ref.document(id).set(request.json)
+        productos_ref.add(request.json)
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
+
+    # try:
+    #     id = request.json['id']
+    #     productos_ref.document(id).set(request.json)
+    #     return jsonify({"success": True}), 200
+    # except Exception as e:
+    #     return f"An Error Occured: {e}"
 
 @app.route('/list', methods=['GET'])
 def read():
@@ -35,17 +42,30 @@ def read():
         todo : Return document that matches query ID.
         all_todos : Return all documents.
     """
+
     try:
-        # Check if ID was passed to URL query
-        todo_id = request.args.get('id')
-        if todo_id:
-            todo = todo_ref.document(todo_id).get()
-            return jsonify(todo.to_dict()), 200
-        else:
-            all_todos = [doc.to_dict() for doc in todo_ref.stream()]
-            return jsonify(all_todos), 200
+        docs = [{'id':v.id} for v in productos_ref.stream()]
+        cols = [v.to_dict() for v in productos_ref.stream()]
+
+        for conv in zip(docs, cols):
+            conv[0].update(conv[1])
+
+        return jsonify(docs), 200
     except Exception as e:
         return f"An Error Occured: {e}"
+
+
+    # try:
+    #     # Check if ID was passed to URL query
+    #     todo_id = request.args.get('id')
+    #     if todo_id:
+    #         todo = productos_ref.document(todo_id).get()
+    #         return jsonify(todo.to_dict()), 200
+    #     else:
+    #         all_todos = [doc.to_dict() for doc in productos_ref.stream()]
+    #         return jsonify(all_todos), 200
+    # except Exception as e:
+    #     return f"An Error Occured: {e}"
 
 @app.route('/update', methods=['POST', 'PUT'])
 def update():
@@ -56,10 +76,11 @@ def update():
     """
     try:
         id = request.json['id']
-        todo_ref.document(id).update(request.json)
+        productos_ref.document(id).update(request.json)
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
+
 
 @app.route('/delete', methods=['GET', 'DELETE'])
 def delete():
@@ -69,10 +90,20 @@ def delete():
     try:
         # Check for ID in URL query
         todo_id = request.args.get('id')
-        todo_ref.document(todo_id).delete()
+        productos_ref.document(todo_id).delete()
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
+
+
+
+    # try:
+    #     # Check for ID in URL query
+    #     todo_id = request.args.get('id')
+    #     productos_ref.document(todo_id).delete()
+    #     return jsonify({"success": True}), 200
+    # except Exception as e:
+    #     return f"An Error Occured: {e}"
 
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':

@@ -1,214 +1,67 @@
-<div class="panel-header panel-header-sm">
-</div>
+<div class="panel-header panel-header-sm"></div>
 <div class="main-content">
   <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title"> Mis productos</h4>
+          <h4 class="card-title">Mis productos</h4>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table">
-              <thead class=" text-primary">
-                <th>
-                  Nombre
-                <th class="text-left">
-                  Precio
-                </th>
+              <thead class="text-primary">
+                <th class="text-left">id</th>
+                <th class="text-left">Categoria</th>
+                <th class="text-left">Nombre</th>
+                <th class="text-left">Precio</th>
+                <th class="text-left">Piezas</th>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let product of productList">
+                  <td>{{ product.id }}</td>
+                  <td>{{ product.Categoria }}</td>
+                  <td>{{ product.Nombre }}</td>
+                  <td>{{ product.Precio }}</td>
+                  <td>{{ product.Piezas }}</td>
                   <td>
-                    Plátano
-                  </td>
-                  <td class="text-left">
-                    $5
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Naranja
-                  </td>
-                  <td class="text-left">
-                    $10
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Cilantro
-                  </td>
-                  <td class="text-left">
-                    $1
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Cacahuate
-                  </td>
-                  <td class="text-left">
-                    $10
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Rábano
-                  </td>
-                  <td class="text-left">
-                    $5
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Aguacate  
-                  </td>
-                  <td class="text-left">
-                    $20
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Chile
-                  </td>
-                  <td class="text-left">
-                    $2
+                    <a class="btn btn-secondary text-white" (click)="onEdit(product)">
+                        <i class="far fa-edit"></i>
+                    </a>
+                    <a class="btn btn-danger text-white" (click)="onDelete(product)">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <button class="btn btn-primary">Agregar Producto</button>
           </div>
         </div>
       </div>
+
+
+      <div class="card mt-4">
+        <div class="card-body">
+          <div class="card-title">
+            Agregar Producto
+          </div>
+          <div class="form-group">
+            <input type="text" [(ngModel)]="selectedProduct.Categoria" placeholder="Categoria" class="form-control">
+          </div>
+          <div class="form-group">
+            <input type="text" [(ngModel)]="selectedProduct.Nombre" placeholder="Nombre" class="form-control">
+          </div>
+          <div class="form-group">
+            <input type="text" [(ngModel)]="selectedProduct.Precio" placeholder="Precio" class="form-control">
+          </div>
+          <div class="form-group">
+            <input type="number" [(ngModel)]="selectedProduct.Piezas" placeholder="Piezas" class="form-control">
+          </div>
+          <button (click)="addOrEdit()" class="btn btn-primary">
+            <i class="fas fa-plus-circle"></i>Agregar Producto</button>
+        </div>
+      </div>
+
+
     </div>
-    <!--
-    <div class="col-md-12">
-      <div class="card card-plain">
-        <div class="card-header">
-          <h4 class="card-title"> Table on Plain Background</h4>
-          <p class="category"> Here is a subtitle for this table</p>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table">
-              <thead class=" text-primary">
-                <th>
-                  Name
-                </th>
-                <th>
-                  Country
-                </th>
-                <th>
-                  City
-                </th>
-                <th class="text-right">
-                  Salary
-                </th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    Dakota Rice
-                  </td>
-                  <td>
-                    Niger
-                  </td>
-                  <td>
-                    Oud-Turnhout
-                  </td>
-                  <td class="text-right">
-                    $36,738
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Minerva Hooper
-                  </td>
-                  <td>
-                    Curaçao
-                  </td>
-                  <td>
-                    Sinaai-Waas
-                  </td>
-                  <td class="text-right">
-                    $23,789
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Sage Rodriguez
-                  </td>
-                  <td>
-                    Netherlands
-                  </td>
-                  <td>
-                    Baileux
-                  </td>
-                  <td class="text-right">
-                    $56,142
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Philip Chaney
-                  </td>
-                  <td>
-                    Korea, South
-                  </td>
-                  <td>
-                    Overland Park
-                  </td>
-                  <td class="text-right">
-                    $38,735
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Doris Greene
-                  </td>
-                  <td>
-                    Malawi
-                  </td>
-                  <td>
-                    Feldkirchen in Kärnten
-                  </td>
-                  <td class="text-right">
-                    $63,542
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Mason Porter
-                  </td>
-                  <td>
-                    Chile
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-right">
-                    $78,615
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Jon Porter
-                  </td>
-                  <td>
-                    Portugal
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-right">
-                    $98,615
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>-->
   </div>
 </div>
